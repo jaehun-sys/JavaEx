@@ -1,4 +1,4 @@
-package com.javaex.problem05;
+package com.oop;
 
 public class StringUtil {
 	public static String concatString(String[] arr){

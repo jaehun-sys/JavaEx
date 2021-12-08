@@ -1,4 +1,4 @@
-package com.javaex.problem05;
+package com.oop;
 
 public class StringUtilApp {
 	public static void main(String[] args) {

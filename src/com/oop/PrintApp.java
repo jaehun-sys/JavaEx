@@ -1,4 +1,4 @@
-package com.javaex.problem03;
+package com.oop;
 
 public class PrintApp {
 	public static void main(String[] args) {

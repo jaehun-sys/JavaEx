@@ -1,4 +1,4 @@
-package com.javaex.problem02;
+package com.oop;
 
 public class Base {
 	public void service(String state) {

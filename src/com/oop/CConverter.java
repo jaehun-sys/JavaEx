@@ -1,4 +1,4 @@
-package com.javaex.problem04;
+package com.oop;
 
 public class CConverter {
 	public static double rate;
