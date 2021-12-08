@@ -6,15 +6,19 @@ public class Print {
     }
 
     //메소드  작성
-	public void printer(boolean B) {
-		System.out.println(B);
+	public void printer(boolean val) {
+		System.out.println(val);
 	}
 	
-	public void printer(double d) {
-		System.out.println(d);
+	public void printer(double val) {
+		System.out.println(val);
 	}
 	
-	public void printer(String name) {
-		System.out.println(name);
+	public void printer(String val) {
+		System.out.println(val);
+	}
+	
+	public void printer(int val, int val2) {
+		System.out.println(val+val2);
 	}
 }
