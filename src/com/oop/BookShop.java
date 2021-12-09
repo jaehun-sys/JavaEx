@@ -39,12 +39,13 @@ public class BookShop {
         //코드작성
     	for(int i=0; i<books.length; i++) {
     		String state;
-    		if(books[i].getState()==1) {
+    		if(books[i].getState()==0) {
     			state = "대여중";
     		}else {
     			state = "재고있음";
     		}
-    		System.out.printf("%-5d 책재목 : %-11s \t 저자 : %-10s \t 대여유무 : %-10s\n",books[i].getNo(), books[i].getTitle(), books[i].getAuthor(), state);
+    		System.out.printf("%-5d 책재목 : %-11s \t 저자 : %-10s \t 대여유무 : %-10s\n",
+    				books[i].getNo(), books[i].getTitle(), books[i].getAuthor(), state);
     	}
     }
 }
