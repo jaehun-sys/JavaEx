@@ -1,7 +1,6 @@
 package com.oop;
 
 public class Account {
-	@SuppressWarnings("unused")
 	private String accountNo;
     private int balance;
 
