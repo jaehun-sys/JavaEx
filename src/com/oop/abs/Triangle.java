@@ -1,4 +1,4 @@
-package com.oop;
+package com.oop.abs;
 
 public class Triangle extends Shape{
 
