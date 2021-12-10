@@ -24,7 +24,6 @@ public class Div implements Calculate{
 	@Override
 	public int calculate() {
 		// TODO Auto-generated method stub
-
 		return a/b;
 
 	}
