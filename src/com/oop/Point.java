@@ -1,6 +1,11 @@
 package com.oop;
 
 public class Point {
+	@Override
+	public String toString() {
+		return "Point [x=" + x + ", y=" + y + "]";
+	}
+	
 	private int x;
 	private int y;
 	public int getX() {

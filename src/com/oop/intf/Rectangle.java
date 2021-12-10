@@ -28,4 +28,18 @@ public class Rectangle extends Shape implements Drawable{
 		// TODO Auto-generated method stub
 		System.out.println("가로 "+this.width+", " +"세로 "+this.height+"인 사각형을 그렸습니다.");
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Rectangle r = ((Rectangle) obj);
+		if (this.hashCode() == r.hashCode()) {
+			return true;
+		} else if (this.width == r.width && this.height == r.height) {
+			return true;
+		} else if (this.area() == r.area()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
