@@ -1,0 +1,493 @@
+SELECT * FROM COUNTRIES;
+
+SELECT	EMPLOYEE_ID	, 
+		FIRST_NAME	, 
+		LAST_NAME
+FROM	EMPLOYEES;
+
+SELECT  EMPLOYEE_ID AS 	EMPNO, 
+		FIRST_NAME 		"E_NAME", 
+		SALARY 			"연 봉"
+FROM	EMPLOYEES;
+
+SELECT 	E.FIRST_NAME 	"사원이름"	,
+		E.PHONE_NUMBER 	"전화번호"	,
+		E.HIRE_DATE 	"입사일"	,
+		E.SALARY		"급여"
+FROM	EMPLOYEES E;
+
+--연결 연산자
+SELECT 	FIRST_NAME	||	LAST_NAME	
+FROM 	EMPLOYEES;
+
+--산술연산자
+SELECT	FIRST_NAME, SALARY, SALARY*12, (SALARY+300)*12	
+FROM	EMPLOYEES;
+
+SELECT	E.FIRST_NAME || '-' ||	E.LAST_NAME		"성명"	,
+		E.SALARY								"급여"	,
+		E.SALARY * 12							"연봉"	,
+		E.SALARY * 12 + 5000					"연봉2"	,
+		E.PHONE_NUMBER 							"전화번호"	,
+		E.HIRE_DATE								"입사일"
+FROM	EMPLOYEES E;
+		
+SELECT 	FIRST_NAME
+FROM	EMPLOYEES
+WHERE 	DEPARTMENT_ID = 10;
+
+--급여가 15000 이상인 사원들의 이름과 급여와 연봉 출력
+SELECT	E.FIRST_NAME	"이름",
+		E.SALARY		"급여",
+		E.SALARY * 12	"연봉"
+FROM	EMPLOYEES E
+WHERE 	E.SALARY >= 15000;
+
+--07/01/01 일 이후에 입사한 사원들의 이름과 입사일을 출력
+SELECT 	E.FIRST_NAME 	"이름",
+		E.HIRE_DATE		"입사일"
+FROM	EMPLOYEES E
+WHERE	E.HIRE_DATE >= '07/01/01';
+
+--이름이 Lex인 직원의 연봉 출력
+SELECT 	E.SALARY	"연봉"
+FROM	EMPLOYEES E
+WHERE 	E.FIRST_NAME = 'Lex';
+
+--연봉이 14000 이하이거나 17000 이상인 사원들의 이름과 연봉 출력
+SELECT 	E.FIRST_NAME	"이름",
+		E.SALARY		"연봉"
+FROM	EMPLOYEES E
+WHERE 	SALARY >= 14000 AND	SALARY <= 17000;
+
+SELECT 	FIRST_NAME,
+		SALARY
+FROM	EMPLOYEES
+WHERE 	SALARY BETWEEN 14000 AND 17000;
+
+--IN 연산자로 여러 조건 검사
+SELECT 	FIRST_NAME	,
+		LAST_NAME	,
+		SALARY
+FROM	EMPLOYEES
+WHERE 	FIRST_NAME IN ('Neena', 'Lex', 'John');
+
+--급여가 2100, 3100, 4100, 5100 인 사원의 이름과 급여 출력
+SELECT 	E.FIRST_NAME	"이름",
+		E.SALARY		"급여"
+FROM	EMPLOYEES E
+WHERE 	E.SALARY IN (2100, 3100, 4100, 5100);
+
+--이름에 am을 포함한 사원의 이름과 연봉을 출력
+SELECT 	E.FIRST_NAME	"이름",
+		E.SALARY		"연봉"
+FROM 	EMPLOYEES E
+WHERE 	E.FIRST_NAME || E.LAST_NAME LIKE '%am%';
+
+SELECT 	FIRST_NAME 		, 
+		SALARY 			, 
+		COMMISSION_PCT 	, 
+		SALARY * COMMISSION_PCT 
+FROM 	EMPLOYEES E 
+WHERE 	SALARY BETWEEN 13000 AND 15000;
+
+--NULL을 포함한 산술식은 NULL
+SELECT 	E.FIRST_NAME,
+		E.SALARY	,
+		E.COMMISSION_PCT
+FROM	EMPLOYEES E
+WHERE 	E.COMMISSION_PCT IS NULL;
+
+--부서번호를 오름차순으로 정렬하고 부서번호, 급여, 이름을 출력
+SELECT 		E.DEPARTMENT_ID	,
+			E.SALARY		,
+			E.FIRST_NAME
+FROM		EMPLOYEES E
+ORDER BY 	1;
+
+--금여가 5000 이상인 직원의 이름, 급여를 급여가 큰 직원부터 출력
+SELECT 		E.DEPARTMENT_ID	,
+			E.SALARY		,
+			E.FIRST_NAME
+FROM		EMPLOYEES E
+WHERE 		E.SALARY >= 5000
+ORDER BY 	2 DESC;
+
+--부서번호를 오름차순으로 정렬하고 부서번호가 같으면 급여가 높은 사람부터 부서번호, 급여, 이름 출력
+SELECT 		E.DEPARTMENT_ID	,
+			E.SALARY		,
+			E.FIRST_NAME
+FROM		EMPLOYEES E
+ORDER BY 	DEPARTMENT_ID 	ASC, 
+			SALARY 			ASC;
+
+--문자함수 - INITCAP(컬럼명)
+--영어의 첫 글자만 대문자로 출력하고 나머지는 전부 소문자로 출력하는 함수
+SELECT 	EMAIL			,
+		INITCAP(EMAIL)	,
+		DEPARTMENT_ID
+FROM	EMPLOYEES e 
+WHERE 	DEPARTMENT_ID = 100;
+
+--문자함수 - LOWER(컬럼명) / UPPER(컬럼명)
+--입력되는 값을 전부 소문자/대문자로 변경하는 함수
+SELECT 	FIRST_NAME, LOWER(FIRST_NAME), UPPER(FIRST_NAME)
+FROM	EMPLOYEES e 
+WHERE 	DEPARTMENT_ID = 100;
+
+--문자합수 - SUBSTR(컬럼명, 시작위치, 글자수)
+SELECT 	FIRST_NAME				, 
+		SUBSTR(FIRST_NAME, 1, 3),
+		SUBSTR(FIRST_NAME, -3, 2)
+FROM	EMPLOYEES e
+WHERE 	DEPARTMENT_ID = 100;
+
+--문자함수 - LPAD(컬럼명, 자리수, '채울문자') / RPAD(컬럼명, 자리수, '채울문자')
+SELECT 	FIRST_NAME					,
+		LPAD(FIRST_NAME, 10, '*')	,
+		RPAD(FIRST_NAME, 10, '*')
+FROM	EMPLOYEES;
+
+--문자함수 - REPLACE(컬럼명, 문자1, 문자2)
+SELECT 	FIRST_NAME,
+		REPLACE(FIRST_NAME, 'a', '*')
+FROM	EMPLOYEES e
+WHERE 	DEPARTMENT_ID = 100;
+
+SELECT 	FIRST_NAME						,
+		REPLACE(FIRST_NAME, 'a', '*')	,
+		REPLACE(FIRST_NAME, SUBSTR(FIRST_NAME, 2, 3), '***')
+FROM	EMPLOYEES e 
+WHERE 	DEPARTMENT_ID = 100;
+
+SELECT 	FIRST_NAME, MONTHS_BETWEEN(SYSDATE, HIRE_DATE)
+FROM	EMPLOYEES e 
+WHERE 	DEPARTMENT_ID = 110;
+
+--TO_CHAR(숫자, '출력모양') 숫자형 -> 문자형
+SELECT 	FIRST_NAME, TO_CHAR(SALARY * 12, '$999,999.99') "SAL"
+FROM 	EMPLOYEES e 
+WHERE 	DEPARTMENT_ID =110;
+
+SELECT 	SYSDATE,
+		TO_CHAR(SYSDATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS')
+FROM 	DUAL;
+
+--정렬은 입사일(HIRE_DATE) 올림차순(ASC)으로 가장 선임부터 출력이 되도록 하세요. 
+--이름(FIRST_NAME LAST_NAME), 월급(SALARY), 전화번호(PHONE_NUMBER), 입사일(HIRE_DATE) 순서이고 
+--"이름", "월급", "전화번호", "입사일" 로 컬럼이름을 대체(COLUMN ALIAS)해 보세요.
+SELECT 		E.FIRST_NAME || ' ' || E.LAST_NAME	"이름"	,
+			E.SALARY							"월급"	,
+			E.PHONE_NUMBER						"전화번호"	,
+			E.HIRE_DATE							"입사일"
+FROM 		EMPLOYEES E
+ORDER BY 	HIRE_DATE ASC;
+
+--업무(JOB_ID)와 월급(SALARY)을 월급의 내림차순(DESC)로 정렬하세요.
+SELECT 		E.JOB_ID, 
+			E.SALARY
+FROM		EMPLOYEES e 
+ORDER BY 	1 ASC, 2;
+
+--담당 매니저가 배치되어있으나 커미션비율이 없고, 월급이 3000초과인 직원의 이름, 매니저 아이디, 커미션 비율, 월급을 출력
+SELECT 	E.FIRST_NAME	,
+		E.MANAGER_ID	,
+		E.COMMISSION_PCT,
+		E.SALARY
+FROM	EMPLOYEES e 
+WHERE 	E.MANAGER_ID IS NOT NULL 
+AND		E.COMMISSION_PCT IS NULL 
+AND   	E.SALARY > 3000;
+
+--월급이 14000 미만 10000 이상인 직원의 이름(FIRST_NAME), 월급, 커미션퍼센트를 월급순(내림차순) 출력
+SELECT 		E.FIRST_NAME,
+			E.SALARY	,
+			E.COMMISSION_PCT
+FROM 		EMPLOYEES e 
+WHERE 		E.SALARY < 14000 AND E.SALARY >= 10000
+ORDER BY 	E.SALARY DESC;
+
+--부서번호가 10, 90, 100 인 직원의 이름, 월급, 입사일, 부서번호를 나타내시오
+--입사일은 1977-12 와 같이 표시하시오
+SELECT 	E.FIRST_NAME					"이름"	, 
+		E.SALARY						"월급"	,
+		TO_CHAR(E.HIRE_DATE, 'YYYY-MM')	"입사일"	,
+		E.EMPLOYEE_ID					"부서번호"
+FROM 	EMPLOYEES E
+WHERE 	E.DEPARTMENT_ID IN (10,90,100);
+
+--이름(FIRST_NAME)에 S 또는 s 가 들어가는 직원의 이름, 월급을 나타내시오
+SELECT 	E.FIRST_NAME,
+		E.SALARY	,
+FROM 	EMPLOYEES E
+WHERE 	E.FIRST_NAME LIKE '%s%',
+		E.FIRST_NAME LIKE '%S%'	;
+		
+SELECT 	E.FIRST_NAME,
+		E.SALARY	,
+FROM 	EMPLOYEES E
+WHERE 	LOWER(E.FIRST_NAME) LIKE '%s%';
+
+--전체 부서를 출력하려고 합니다. 순서는 부서 이름이 긴 순서대로.
+SELECT 		D.DEPARTMENT_NAME
+FROM		DEPARTMENTS d 
+ORDER BY 	LENGTH (D.DEPARTMENT_NAME) DESC;
+
+--정확하지 않지만, 지사가 있을 것으로 예상되는 나라이름을 대문자로 출력하고, 오름차순(ASC)으로 정렬하시오
+
+--그룹함수 - COUNT()
+SELECT 	COUNT(*), COUNT(E.COMMISSION_PCT)
+FROM	EMPLOYEES e ;
+
+--그룹함수 - SUM()
+SELECT 	COUNT(*), SUM(SALARY)
+FROM 	EMPLOYEES e ;
+
+--HAVING 절
+SELECT 		DEPARTMENT_ID	,
+			COUNT(*)		,
+			SUM(SALARY)
+FROM 		EMPLOYEES e 
+GROUP BY 	DEPARTMENT_ID
+HAVING 		SUM(SALARY) > 20000;
+
+--CASE ~ END 문 / DECODE() 함수
+SELECT 	EMPLOYEE_ID	,
+		SALARY		,
+		CASE	WHEN JOB_ID = 'AC_ACCOUNT'	THEN SALARY + SALARY * 0.1
+				WHEN JOB_ID = 'AC_MGR'		THEN SALARY + SALARY * 0.2
+				ELSE SALARY
+		END 	JOB_ID 
+FROM 	EMPLOYEES;
+
+--직원의 이름, 부서, 팀을 출력하세요
+--팀은 부서코드로 결정하며 부서코드가 10~50 이면 ‘A-TEAM’
+--60~100이면 ‘B-TEAM’ 110~150이면 ‘C-TEAM’ 나머지는 ‘팀없음’ 으로 출력하세요
+SELECT 	E.FIRST_NAME	,
+		E.DEPARTMENT_ID	,
+		CASE WHEN DEPARTMENT_ID BETWEEN 10  AND 50	THEN	'A-TEAM'
+			 WHEN DEPARTMENT_ID BETWEEN 60  AND 100	THEN 	'B-TEAM'
+			 WHEN DEPARTMENT_ID BETWEEN 110 AND 150	THEN 	'팀없음'
+		END  TEAM
+FROM 	EMPLOYEES e;
+
+--JOIN
+--카티젼 프로덕트
+SELECT 	FIRST_NAME		,
+		DEPARTMENT_NAME	
+FROM 	EMPLOYEES e 	,
+		DEPARTMENTS d 	;
+
+--EQUI JOIN(등가 조인. 교집합)
+SELECT 	FIRST_NAME			, 
+		EM.DEPARTMENT_ID	,
+		DEPARTMENT_NAME		,
+		DE.DEPARTMENT_ID	
+FROM	EMPLOYEES 	EM,
+		DEPARTMENTS DE
+WHERE 	EM.DEPARTMENT_ID = DE.DEPARTMENT_ID ;
+
+--모든 직원이름, 부서이름, 업무명을 출력하세요
+SELECT 	E.FIRST_NAME		,
+		D.DEPARTMENT_NAME	,
+		J.JOB_TITLE		
+FROM	EMPLOYEES 	e , 
+		DEPARTMENTS d , 
+		JOBS 		j 
+WHERE 	E.DEPARTMENT_ID = D.DEPARTMENT_ID
+AND 	E.JOB_ID = J.JOB_ID;
+
+--NULL이 올 수 있는 쪽에 (+)를 붙인다.
+--FULL OUTER JOIN
+SELECT 	E.DEPARTMENT_ID		,
+		E.FIRST_NAME		,
+		D.DEPARTMENT_NAME	
+FROM 	EMPLOYEES e FULL OUTER JOIN DEPARTMENTS d 
+ON		E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
+--SELF JOIN
+SELECT 	EMP.EMPLOYEE_ID 	,
+		EMP.FIRST_NAME		,
+		EMP.MANAGER_ID		,
+		MAN.FIRST_NAME	MANAGER
+FROM	EMPLOYEES EMP	, 
+		EMPLOYEES MAN
+WHERE 	EMP.MANAGER_ID = MAN.EMPLOYEE_ID(+) ;	
+
+--직우너중에 최고임금(SALARY)과 최저임금을 '최고임금', '최저임금' 프로젝션 타이틀로 함께 출력해 보세요.
+--두 임금의 차이는 얼마인가요? '최고임금 - 최저임금' 이란 타이틀로 함께 출력해 보세요.
+SELECT 	MAX(E.SALARY) - MIN(E.SALARY) "최고임금 - 최저임금"
+FROM	EMPLOYEES E;
+
+--마지막으로 신입사원이 들어온 날은 언제입니까?
+SELECT 	TO_CHAR(MAX(HIRE_DATE), 'YYYY"년" MM"월" DD"일"')
+FROM	EMPLOYEES e ;
+
+--부서별로 평균임금, 최고임금, 최저임금을 부서(DEPARTMENT_ID)와 함께 출력하고 정렬순서는 부서번호(DEPARTMENT_ID) 내림차순입니다.
+SELECT 	DEPARTMENT_ID 	"부서"	,
+		AVG(SALARY)		"평균임금"	,
+		MAX(SALARY)		"최고임금"	,
+		MIN(SALARY)		"최저임금"
+FROM 	EMPLOYEES e 
+GROUP BY 	E.DEPARTMENT_ID 
+ORDER BY 	E.DEPARTMENT_ID DESC;
+
+--업무(JOB_ID)별로 평균임금, 최고임금, 최저임금을 업무(JOB_ID)와 함께 출력하고 정렬순서는 업무(JOB_ID) 내림차순입니다.
+SELECT 	E.JOB_ID	,
+		AVG(E.SALARY)	,
+		MAX(E.SALARY)	,
+		MIN(E.SALARY)	
+FROM	EMPLOYEES e 
+GROUP BY 	E.JOB_ID
+ORDER BY 	1 DESC;
+
+--가장 오래 근속한 직원의 입사일은?
+SELECT 	TO_CHAR(MIN(HIRE_DATE), 'YYYY"년" MM"월" DD"일"')
+FROM	EMPLOYEES e ;
+
+--평균임금과 최저임금의 차이가 2000 미만인
+--부서(DEPARTMENT_ID), 평균임금, 최저임금, (평균임금 - 최저임금)
+--(평균임금 - 최저임금) 의 내림차순으로 정렬해서 출력
+SELECT 		E.DEPARTMENT_ID	,
+			AVG(E.SALARY)	,
+			MIN(E.SALARY)	,
+			AVG(E.SALARY) - MIN(E.SALARY)
+FROM 		EMPLOYEES e 
+GROUP BY 	E.DEPARTMENT_ID
+HAVING 		AVG(E.SALARY) - MIN(E.SALARY) < 2000
+ORDER BY 	4 DESC;
+
+--업무(JOB_ID)별로 최고임금과 최저임금의 차이를 출력해보세요.
+--차이를 확인할 수 있도록 내림차순으로 정렬하세요
+SELECT 		E.JOB_ID 						,
+			MAX(E.SALARY)					,
+			MIN(E.SALARY)					,
+			MAX(E.SALARY) - MIN(E.SALARY)	
+FROM 		EMPLOYEES e
+GROUP BY 	E.JOB_ID;
+
+--각 사원(EMPLOYEE)에 대해서 사번(EMPLOYEE_ID), 이름(FIRST_NAME), 부서명(DEPARTMENT_NAME), 매니저(MANAGER)의 이름(FIRST_NAME)을 조회하세요
+SELECT 		E.EMPLOYEE_ID		"사번"	,
+			E.FIRST_NAME		"이름"	,
+			D.DEPARTMENT_NAME 	"부서명"	,
+			M.FIRST_NAME		"매니저"
+FROM		EMPLOYEES E 	,
+			EMPLOYEES M		,
+			DEPARTMENTS D
+WHERE		E.MANAGER_ID = M.EMPLOYEE_ID (+)
+AND			E.DEPARTMENT_ID = D.DEPARTMENT_ID ;
+
+--지역(REGION)에 속한 나라들을 지역(REGION_NAME), 나라이름(COUNTRY_NAME)으로 출력하되 지역이름, 나라이름 순서대로 내림차순으로 정렬하세요
+SELECT 		R.REGION_NAME		"지역"	,
+			C.COUNTRY_NAME		"나라이름"	
+FROM 		REGIONS r 	,
+			COUNTRIES c 
+WHERE 		R.REGION_ID = C.REGION_ID
+ORDER BY 	R.REGION_ID	DESC ;
+
+--각 부서(DEPARTMENT)에 대해서 	부서번호(DEPARTMENT_ID), 
+--							부서이름(DEPARTMENT_NAME), 
+--							매니저(MANAGER)의 이름(FIRST_NAME), 
+--							위치(LOCATION)한 도시(CITY), 
+--							나라(COUNTRY)의 이름(COUNTRIES_NAME) 그리고 
+--							지역구분(REGIONS)의 이름(REGION_NAME)까지 전부 출력
+SELECT 	D.DEPARTMENT_ID 	"부서번호"		,
+		D.DEPARTMENT_NAME	"부서이름"		,
+		E.FIRST_NAME		"매니저이름"	,
+		L.CITY				"도시이름"		,
+		C.COUNTRY_NAME		"나라이름"		,
+		R.REGION_NAME		"지역이름"
+FROM	REGIONS 	R ,
+		LOCATIONS 	L ,
+		DEPARTMENTS D ,
+		COUNTRIES 	C ,
+		EMPLOYEES 	E
+WHERE 	E.EMPLOYEE_ID = D.MANAGER_ID
+AND 	L.LOCATION_ID = D.LOCATION_ID
+AND 	L.COUNTRY_ID  = C.COUNTRY_ID 
+AND 	R.REGION_ID   = C.REGION_ID 
+ORDER BY D.DEPARTMENT_ID ;
+
+--'Public Accountant'의 직책(job_title)으로 과거에 근무한 적이 있는 모든 사원의 사번과 이름을 출력하세요.
+--(현재 'Public Accountant'의 직책(job_title)으로 근무하는 사원은 고려하지 않습니다.)
+--이름은 first_name과 last_name을 합쳐 출력합니다.
+SELECT 	E.EMPLOYEE_ID, 
+		E.FIRST_NAME || ' ' || E.LAST_NAME
+FROM	JOB_HISTORY jh	,
+		JOBS 		j 	, 	
+		EMPLOYEES   E
+WHERE	J.JOB_ID = JH.JOB_ID
+AND		JH.EMPLOYEE_ID = E.EMPLOYEE_ID 
+AND		J.JOB_TITLE = 'Public Accountant';
+
+--자신의 매니저보다 채용일(HIRE_DATE)이 빠른 사원의 사번(EMPLOYEE_ID), 성(LAST_NAME)과 채용일(HIRE_DATE)을 조회하세요
+SELECT 	E.EMPLOYEE_ID 	"사번"	,
+		E.LAST_NAME 	"성"		,
+		E.HIRE_DATE		"채용일"	,
+		E.MANAGER_ID
+FROM	EMPLOYEES E	,
+		EMPLOYEES M
+WHERE 	E.MANAGER_ID = M.EMPLOYEE_ID 
+AND 	E.HIRE_DATE < M.HIRE_DATE ;
+
+--평균 급여보다 적은 급여를 받는 직원은 몇 명이나 있습니까?
+SELECT 	COUNT(*)
+FROM	EMPLOYEES e
+WHERE 	E.SALARY < (SELECT 	AVG(E.SALARY)
+					FROM	EMPLOYEES e );
+
+--서브쿼리 다중행				
+SELECT 	FIRST_NAME	,
+		SALARY		
+FROM 	EMPLOYEES e 
+WHERE 	SALARY > ALL (	SELECT 	SALARY
+						FROM	EMPLOYEES e2
+						WHERE	DEPARTMENT_ID = 110	);
+
+
+--각 부서별로 최고급여를 받는 사원을 출력하세요
+--테이블에서 조인
+SELECT	E.DEPARTMENT_ID ,
+		E.EMPLOYEE_ID	, 
+		E.FIRST_NAME 	,
+		E.SALARY 		
+FROM	EMPLOYEES E	,
+		(	SELECT 		MAX(E2.SALARY) 		AS SALARY	,
+						E2.DEPARTMENT_ID	AS DEPARTMENT_ID
+			FROM		EMPLOYEES E2 
+			GROUP BY 	E2.DEPARTMENT_ID	) E3
+WHERE 	 E.DEPARTMENT_ID = E3.DEPARTMENT_ID 
+AND		 E.SALARY = E3.SALARY
+ORDER BY E.DEPARTMENT_ID ;
+
+--조건절에서 비교
+SELECT 	DEPARTMENT_ID 	, 
+		EMPLOYEE_ID 	, 
+		FIRST_NAME 		, 
+		SALARY 
+FROM 	EMPLOYEES e 
+WHERE (DEPARTMENT_ID , SALARY) IN (	SELECT	 DEPARTMENT_ID , MAX(SALARY)
+									FROM 	 EMPLOYEES 
+									GROUP BY DEPARTMENT_ID)
+ORDER BY DEPARTMENT_ID ;
+
+--각 업무(JOB) 별로 연봉(SALARY)의 총합을 구하고자 합니다. 연봉 총합이 가장 높은 업무부터 업무명(JOB_TITLE)과 연봉 총합을 조회하시오.
+SELECT 	J.JOB_TITLE 	"업무명"		,
+		SUM(E.SALARY)	"연봉 총합"	
+FROM	JOBS J, EMPLOYEES E
+WHERE	J.JOB_ID = E.JOB_ID 
+GROUP BY J.JOB_TITLE
+ORDER BY SUM(E.SALARY) DESC;
+		
+--서브쿼리로 풀기
+SELECT 	J.JOB_TITLE	,
+		T.SALARY 	
+FROM	JOBS J,
+		( SELECT JOB_ID				,
+				 SUM(SALARY) SALARY 
+          FROM	 EMPLOYEES e 
+          GROUP BY JOB_ID ) T
+WHERE J.JOB_ID = T.JOB_ID
+ORDER BY SALARY DESC;
+
+
